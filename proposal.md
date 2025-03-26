@@ -68,9 +68,12 @@ A: Margaret Thatcher
 
 2. How many times will you show each flashcard the first time the user runs your flashcards program?
 
-I will show each flashcard twice
+I will show each flashcard once in a random order 
 
 3. How will the number of times you show each flashcard change the second time the user runs the program, based on their performance the previous time?
 
+Based on user performance, if they answer something correctly I will show the flashcard once, if they answer something incorrectly, I will show the flashcard twice.
+
 4. What information will you need to store in a file in order to make the program change it's behavior each time the user runs the program?
+I will collect information on which flashcards are answered correctly vs incorrectly so that I can show the flashcards they get wrong first
 
