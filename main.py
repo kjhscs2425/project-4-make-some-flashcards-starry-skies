@@ -1,6 +1,6 @@
 import random
 import ctypes
-easy_round = {"What year did World War II end?":1945, 
+easy_round = {"What year did World War II end?":"1945", 
               "Who painted the Mona Lisa?":"Leonardo da Vinci", 
               "What is the longest river in the world?":"The Nile", 
               "Who was the first person to walk on the moon?":"Neil Armstrong",
@@ -27,19 +27,39 @@ hard_round = {"What was the name of the secret project that led to the developme
 }
 
 #record which questions were right and which question were wrong
-questions_answered_right = []
-questions_answered_wrong = []
-
-random_questions = random.shuffle(list(easy_round.keys()))
-for random_question in random_questions:
-    user_answer = input(random_question)
-    if user_answer == easy_round[random_question]:
-        print("Congrats, you answered correctly!")
-        questions_answered_right.append(random_question)
+# questions_answered_right = []
+# questions_answered_wrong = []
+# random_questions = list(easy_round.keys())
+# for random_question in random_questions:
+#     user_answer = input(random_question + "")
+#     if user_answer == easy_round[random_question]:
+#         print("Congrats, you answered correctly!")
+#         questions_answered_right.append(random_question)
+#     else:
+#         print("Incorrect :(")
+#         questions_answered_wrong.append(random_question)
+# print(f"Nice job! You answered" + questions_answered_right + " questions correctly!")
+    
+def quiz_round_1():
+    questions_answered_right = []
+    questions_answered_wrong = []
+    random_questions = list(easy_round.keys())
+    for random_question in random_questions:
+        user_answer = input(random_question + " ")
+        if user_answer == easy_round[random_question]:
+            print("Congrats, you answered correctly!")
+            questions_answered_right.append(random_question)
+        else:
+            print("Incorrect :(")
+            questions_answered_wrong.append(random_question)
+    print(f"Nice job! You answered {len(questions_answered_right)} questions correctly!")
+    if len(questions_answered_right) >= 3:
+        quiz_round_2():
     else:
-        print("Incorrect :(")
-        questions_answered_wrong.append[random_question]
-    print(questions_answered_right)
+        quiz_round_1()
+    return questions_answered_right, questions_answered_wrong
 
+def quiz_round_2():
 
+quiz_round_1()
 
