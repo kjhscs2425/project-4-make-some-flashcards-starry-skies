@@ -21,7 +21,7 @@
 # questions_answered_right_records = []
 # questions_answered_wrong_records = []
 import random
-import matplotlib
+
 
 #history facts
 history_easy_round = {"What year did World War II end?":"1945", 
@@ -63,6 +63,27 @@ records_hard_round = {"yhrt54rwedfthy", "wre4t5y6yjhngbfr"}
 
 questions_answered_right_easy = []
 questions_answered_wrong_easy = []
+level_medium_round = 0
+level_hard_round = 0
+
+def main():
+    first_decision = input(print("Hello! Welcome to the Flashcards Game! Do you want to start with history, geography, pop culture, or world records trivia?"))
+    if first_decision.lower == "geography":
+        level_medium_round = geography_medium_round
+        level_hard_round = geography_hard_round
+        quiz_round_all(geography_easy_round)
+    if first_decision == "history":
+        level_medium_round = history_medium_round
+        level_hard_round = history_hard_round
+        quiz_round_all(history_easy_round)
+    if first_decision.lower == "pop culture":
+        level_medium_round = popculture_medium_round
+        level_hard_round = popculture_hard_round
+        quiz_round_all(popculture_easy_round)
+    if first_decision.lower == "world records":
+        level_medium_round = records_medium_round
+        level_hard_round = records_hard_round
+        quiz_round_all(records_easy_round)
 
 def quiz_round_all(level):
     random_questions = list(level.keys())
@@ -74,49 +95,16 @@ def quiz_round_all(level):
         else:
             print("Incorrect :(")
             questions_answered_wrong_easy.append(random_question)
-    print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 2")
-    if len(questions_answered_right_easy) >= 3:
-        next_step = input("Would you like to try geography, pop culture, or world records trivia next?").lower
-        if next_step == "geography":
-            quiz_round_all(geography_easy_round)
-        elif next_step == "pop culture":
-            quiz_round_all(popculture_easy_round)
-        elif next_step == "records":
-            quiz_round_all(records_easy_round)
-        else:
-            quiz_round_all(history_easy_round)
+    if len(questions_answered_right_easy) <= 4:
+        print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! Unfortunately, you have to try again to advance to round 2. Good luck!")
         return questions_answered_right_easy, questions_answered_wrong_easy
-    if len(questions_answered_right_easy) >= 8:
-        next_step = input("Would you like to try history, geography, pop culture, or world records trivia next?").lower
-        if next_step == "geography":
-            quiz_round_all(geography__round)
-        elif next_step == "pop culture":
-            quiz_round_all(popculture_easy_round)
-        elif next_step == "records":
-            quiz_round_all(records_easy_round)
-        elif next_step == "history":
-            quiz_round_all(geography_easy_round)
-        else:
-            quiz_round_all(history_easy_round)
+    if len(questions_answered_right_easy) >= 4 and len(questions_answered_right_easy + questions_answered_wrong_easy) < len(history_easy_round):
+        print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 2!")
+        quiz_round_all(level_medium_round)
+        return questions_answered_right_easy, questions_answered_wrong_easy
+    if len(questions_answered_right_easy) >=8:
+        print(f"Nice job! In 2 rounds, you answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 3!")
+        quiz_round_all(level_hard_round)
         return questions_answered_right_easy, questions_answered_wrong_easy
 
-# quiz_round_all_history(easy_round)
-def quiz_round_all_geography (level):
-    random_questions = list(level.keys())
-    for random_question in random_questions:
-        user_answer = input(random_question + " ")
-        if user_answer == level[random_question]:
-            print("Congrats, you answered correctly!")
-            questions_answered_right.append(random_question)
-        else:
-            print("Incorrect :(")
-            questions_answered_wrong.append(random_question)
-    print(f"Nice job! You answered {len(questions_answered_right)} questions correctly!")
-    if len(questions_answered_right) >= 3:
-        quiz_round_all(medium_round)
-    if len(questions_answered_right >= 7):
-        quiz_round_all(hard_round)
-    else:
-        quiz_round_all(easy_round)
-    return questions_answered_right, questions_answered_wrong
-
+main()
