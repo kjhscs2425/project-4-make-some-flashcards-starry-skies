@@ -49,7 +49,7 @@ history_hard_round = {"What was the name of the secret project that led to the d
 
 }
 #geography facts
-geography_easy_round = {"hello world", "food"}
+geography_easy_round = {"a":"b", "c":"d", "e":"f", "g":"h", "i":"j"}
 geography_medium_round = {"he", "sh"}
 geography_hard_round = {"she", "fbe"}
 #pop culture facts
@@ -67,22 +67,22 @@ level_medium_round = 0
 level_hard_round = 0
 
 def main():
-    first_decision = input(print("Hello! Welcome to the Flashcards Game! Do you want to start with history, geography, pop culture, or world records trivia?"))
+    first_decision = input("Hello! Welcome to the Flashcards Game! Do you want to start with history, geography, pop culture, or world records trivia?")
     if first_decision.lower == "geography":
-        level_medium_round = geography_medium_round
-        level_hard_round = geography_hard_round
+        # level_medium_round = geography_medium_round()
+        # level_hard_round = geography_hard_round()
         quiz_round_all(geography_easy_round)
     if first_decision == "history":
-        level_medium_round = history_medium_round
-        level_hard_round = history_hard_round
+        # level_medium_round = history_medium_round
+        # level_hard_round = history_hard_round
         quiz_round_all(history_easy_round)
     if first_decision.lower == "pop culture":
-        level_medium_round = popculture_medium_round
-        level_hard_round = popculture_hard_round
+        # level_medium_round = popculture_medium_round
+        # level_hard_round = popculture_hard_round
         quiz_round_all(popculture_easy_round)
     if first_decision.lower == "world records":
-        level_medium_round = records_medium_round
-        level_hard_round = records_hard_round
+        # level_medium_round = records_medium_round
+        # level_hard_round = records_hard_round
         quiz_round_all(records_easy_round)
 
 def quiz_round_all(level):
@@ -92,19 +92,20 @@ def quiz_round_all(level):
         if user_answer == level[random_question]:
             print("Congrats, you answered correctly!")
             questions_answered_right_easy.append(random_question)
-        else:
+        elif user_answer != level[random_question]:
             print("Incorrect :(")
             questions_answered_wrong_easy.append(random_question)
-    if len(questions_answered_right_easy) <= 4:
-        print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! Unfortunately, you have to try again to advance to round 2. Good luck!")
-        return questions_answered_right_easy, questions_answered_wrong_easy
-    if len(questions_answered_right_easy) >= 4 and len(questions_answered_right_easy + questions_answered_wrong_easy) < len(history_easy_round):
-        print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 2!")
-        quiz_round_all(level_medium_round)
-        return questions_answered_right_easy, questions_answered_wrong_easy
-    if len(questions_answered_right_easy) >=8:
-        print(f"Nice job! In 2 rounds, you answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 3!")
-        quiz_round_all(level_hard_round)
-        return questions_answered_right_easy, questions_answered_wrong_easy
+    print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly!")
+    # if len(questions_answered_right_easy) <= 4:
+    #     print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! Unfortunately, you have to try again to advance to round 2. Good luck!")
+    #     return questions_answered_right_easy, questions_answered_wrong_easy
+    # if len(questions_answered_right_easy) >= 4 and len(questions_answered_right_easy + questions_answered_wrong_easy) < len(history_easy_round):
+    #     print(f"Nice job! You answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 2!")
+    #     quiz_round_all(level_medium_round)
+    #     return questions_answered_right_easy, questions_answered_wrong_easy
+    # if len(questions_answered_right_easy) >=8:
+    #     print(f"Nice job! In 2 rounds, you answered {len(questions_answered_right_easy)} questions correctly! You are advancing to round 3!")
+    #     quiz_round_all(level_hard_round)
+    #     return questions_answered_right_easy, questions_answered_wrong_easy
 
 main()
