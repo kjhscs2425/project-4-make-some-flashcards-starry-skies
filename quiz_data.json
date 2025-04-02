@@ -1,0 +1,28 @@
+{
+    "run number 1": {
+        "questions_answered_right": [
+            "What was the name of the first successful steam engine?",
+            "What was the name of the treaty that ended World War I?"
+        ],
+        "questions_answered_wrong": [
+            "Who was the leader of the Soviet Union during the Cold War?",
+            "What was the code name for the German invasion of the Soviet Union during World War II?",
+            "What is the name of the period of European history that lasted from the 14th to the 17th century?",
+            "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?",
+            "Who wrote 'To Kill a Mockingbird'?"
+        ]
+    },
+    "run number 2": {
+        "questions_answered_right": [
+            "Who was the last tsar of Russia?",
+            "What is the name of the theory that explains how the universe began?",
+            "What was the name of the first successful artificial satellite?",
+            "What year did the Berlin Wall fall?",
+            "Who was the first female Prime Minister of the United Kingdom?"
+        ],
+        "questions_answered_wrong": [
+            "What was the name of the secret project that led to the development of the atomic bomb?",
+            "Who was the first woman to fly solo across the Atlantic Ocean?"
+        ]
+    }
+}
