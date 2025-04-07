@@ -29,14 +29,6 @@ def find_number():
     data = load_data()
     run_numbers = [int(key.split(" ")[-1]) for key in data.keys() if key.startswith("run number")]
     return max(run_numbers) + 1 if run_numbers else 1
-def stats_summary(level_name, correct, incorrect, performance_by_level):
-    total_correct = sum(len(lvl["correct"]) for lvl in performance_by_level.values())
-    total_incorrect = sum(len(lvl["incorrect"]) for lvl in performance_by_level.values())
-    total_attempted = total_correct + total_incorrect
-    level_total = len(correct) + len(incorrect)
-    print(f"Summary for {level_name}: Correct = {len(correct)}, Incorrect = {len(incorrect)}")
-    print(f"Stats so far: Total Correct = {total_correct}, Total Incorrect = {total_incorrect}")
-          
 # Conduct a quiz round based on the given question set
 def quiz_round(run_number, level, next_level, first_decision, performance_by_level, level_num=1):
     level_name = f"Level {level_num}"
@@ -48,7 +40,6 @@ def quiz_round(run_number, level, next_level, first_decision, performance_by_lev
     random_questions = list(level.keys())
     random.shuffle(random_questions)
 
-    # Ask questions
     for question in random_questions:
         user_answer = input(question + " ").lower()
         if user_answer == level[question].lower():
@@ -60,7 +51,7 @@ def quiz_round(run_number, level, next_level, first_decision, performance_by_lev
 
     # Update performance for the current level
     performance_by_level[level_name] = {"correct": correct, "incorrect": incorrect}
-
+    save_data(run_number, performance_by_level)
     stats_summary(level_name, correct, incorrect, performance_by_level)
     print(f"Nice job! You answered {len(correct)} questions correctly")
 
