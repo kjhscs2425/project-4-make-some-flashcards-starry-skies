@@ -24,5 +24,174 @@
             "What was the name of the secret project that led to the development of the atomic bomb?",
             "Who was the first woman to fly solo across the Atlantic Ocean?"
         ]
+    },
+    "run number 3": {
+        "questions_answered_right": [
+            "What was the name of the first successful artificial satellite?",
+            "What was the name of the secret project that led to the development of the atomic bomb?",
+            "Who was the last tsar of Russia?",
+            "Who was the first female Prime Minister of the United Kingdom?",
+            "What is the name of the theory that explains how the universe began?",
+            "Who was the first woman to fly solo across the Atlantic Ocean?",
+            "What year did the Berlin Wall fall?"
+        ],
+        "questions_answered_wrong": []
+    },
+    "run number 4": {
+        "questions_answered_right": [
+            "What is the longest river in the world?",
+            "Where did Albert Einstein live before moving to the United States?",
+            "What year did World War II end?",
+            "Who painted the Mona Lisa?",
+            "What is the longest wall in the world?",
+            "Who was the first person to walk on the moon?"
+        ],
+        "questions_answered_wrong": []
+    },
+    "run number 5": {
+        "questions_answered_right": [
+            "Who was the first person to walk on the moon?",
+            "Where did Albert Einstein live before moving to the United States?",
+            "What year did World War II end?",
+            "Who painted the Mona Lisa?",
+            "What is the longest river in the world?",
+            "What is the longest wall in the world?"
+        ],
+        "questions_answered_wrong": []
+    },
+    "run number 6": {},
+    "run number 7": {},
+    "run number 8": {
+        "Level 1": {
+            "correct": [
+                "What is the longest river in the world?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "Who was the first person to walk on the moon?",
+                "What is the longest wall in the world?",
+                "Who painted the Mona Lisa?"
+            ],
+            "incorrect": []
+        },
+        "Level 2": {
+            "correct": [
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "What was the name of the first successful steam engine?",
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?",
+                "What was the name of the treaty that ended World War I?"
+            ],
+            "incorrect": [
+                "Who wrote 'To Kill a Mockingbird'?",
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?"
+            ]
+        },
+        "Level 3": {
+            "correct": [
+                "What year did the Berlin Wall fall?",
+                "Who was the last tsar of Russia?",
+                "Who was the first female Prime Minister of the United Kingdom?",
+                "What was the name of the secret project that led to the development of the atomic bomb?",
+                "What was the name of the first successful artificial satellite?"
+            ],
+            "incorrect": [
+                "What is the name of the theory that explains how the universe began?",
+                "Who was the first woman to fly solo across the Atlantic Ocean?"
+            ]
+        }
+    },
+    "run number 9": {},
+    "run number 10": {},
+    "run number 11": {},
+    "run number 12": {
+        "Level 1": {
+            "correct": [
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "What is the longest wall in the world?",
+                "What year did World War II end?"
+            ],
+            "incorrect": []
+        }
+    },
+    "run number 13": {
+        "Level 1": {
+            "correct": [
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "What is the longest wall in the world?",
+                "What is the longest river in the world?",
+                "Who painted the Mona Lisa?",
+                "Who was the first person to walk on the moon?"
+            ],
+            "incorrect": []
+        }
+    },
+    "run number 14": {
+        "Level 1": {
+            "correct": [],
+            "incorrect": [
+                "Who was the first person to walk on the moon?",
+                "What is the longest wall in the world?",
+                "What year did World War II end?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest river in the world?",
+                "Who painted the Mona Lisa?"
+            ]
+        }
+    },
+    "run number 15": {
+        "Level 1": {
+            "correct": [
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest river in the world?",
+                "What year did World War II end?",
+                "What is the longest wall in the world?",
+                "Who was the first person to walk on the moon?"
+            ],
+            "incorrect": []
+        }
+    },
+    "run number 16": {
+        "Level 1": {
+            "correct": [
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "What is the longest river in the world?",
+                "What is the longest wall in the world?",
+                "Who was the first person to walk on the moon?",
+                "Who painted the Mona Lisa?"
+            ],
+            "incorrect": []
+        },
+        "Level 2": {
+            "correct": [
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "What was the name of the first successful steam engine?",
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?",
+                "What was the name of the treaty that ended World War I?",
+                "Who wrote 'To Kill a Mockingbird'?"
+            ],
+            "incorrect": [
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?"
+            ]
+        },
+        "Level 3": {
+            "correct": [
+                "Who was the first female Prime Minister of the United Kingdom?",
+                "Who was the first woman to fly solo across the Atlantic Ocean?",
+                "What was the name of the first successful artificial satellite?",
+                "What year did the Berlin Wall fall?",
+                "What is the name of the theory that explains how the universe began?",
+                "Who was the last tsar of Russia?"
+            ],
+            "incorrect": [
+                "What was the name of the secret project that led to the development of the atomic bomb?"
+            ]
+        }
     }
 }
