@@ -4,11 +4,11 @@ import random
 import tkinter as tk
 
 
-boxes = {
-    "box_1": [],  # incorrect
-    "box_2": [],  # correct 1x
-    "box_3": []   # correct 2x
-}
+box_1 = []
+box_2 = []
+box_3 = []
+box_4 = []
+questions_asked = []
 
 past_runs = {
     "level_1": [],
@@ -59,26 +59,46 @@ def print_average(level_name):
     current_attempted = current_correct + current_incorrect
     current_average = (current_correct / current_attempted) if current_attempted else 0
     print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
+
+
 # Run a quiz round for a level
 def quiz_round(questions, level_name):
     random_questions = list(questions.keys())
-    random.shuffle(random_questions)
-    
+    # random.shuffle(random_questions)
     for question in random_questions:
-        user_answer = input(f"{question} ").strip().lower()
-        correct_answer = questions[question].strip().lower()
+        user_answer = input(f"{question}").lower()
+        correct_answer = questions[question].lower()
+        if question in questions_asked:
+            pass
+        random.shuffle(random_questions)
+        if level == 1:
+                if user_answer == correct_answer:
+                    print("Congrats, you answered correctly!")
+                    current_run[level_name]["correct"].append(question)
+                    questions_asked.append(question)
+                    box_2.append(question)
+            else:
+                print(f"Incorrect :( The correct answer was: {correct_answer}")
+                current_run[level_name]["incorrect"].append(question)
+                questions_asked.append(question)
+                box_1.append(question)
+        if level > 1:
+            new_questions = list(questions[])
+            if user_answer == correct_answer:
+                print("Congrats, you answered correctly!")
+                current_run[level_name]["correct"].append(question)
+                questions_asked.append(question)
+                box_2.append(question)
+            else:
+                print(f"Incorrect :( The correct answer was: {correct_answer}")
+                current_run[level_name]["incorrect"].append(question)
+                questions_asked.append(question)
+                box_1.append(question)
 
-        if user_answer == correct_answer:
-            print("Congrats, you answered correctly!")
-            boxes["box_2"].append(question)
-            current_run[level_name]["correct"].append(question)
-        else:
-            print(f"Incorrect :( The correct answer was: {correct_answer}")
-            boxes["box_1"].append(question)
-            current_run[level_name]["incorrect"].append(question)
+            
+    
         
         print_average(level_name)
-
     total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
     passing = len(current_run[level_name]["correct"]) / total if total else 0
     if current_run[level_name]["correct"] or current_run[level_name]["incorrect"]:
@@ -137,7 +157,7 @@ def main():
         current_category = categories["history"]
         
         while current_category:  # Loop through categories while next exists
-            print(f"\nStarting {level_name}...")
+            print(f"Starting {level_name}...")
             passed = quiz_round(current_category["questions"], level_name)
             
             if passed and current_category.get("next"):  # If passed and there's a next level
