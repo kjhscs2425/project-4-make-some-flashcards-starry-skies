@@ -1,242 +1,94 @@
-# import json
-# import os
-# import random
-# import tkinter as tk
-
-# box_1 = {}
-# box_2 = {}
-# box_3 = {}
-# data_file = "quiz_data.json"
-
-# # Load existing quiz data or return an empty dictionary if the file is missing or corrupted
-# def load_data():
-#     if os.path.exists(data_file):
-#         with open(data_file, "r") as f:
-#                 content = f.read().strip()
-#                 return json.loads(content) if content else {}  # Handle empty file case
-#     else:
-#         print("Oh no, there's been an error!!!")
-#     return {}
-
-# # Save the quiz results for a specific run number
-# def save_data(run_number, performance_by_level):
-#     data = load_data()  # Load existing data
-#     data[f"run number {run_number}"] = performance_by_level
-#     with open(data_file, "w") as f:
-#         json.dump(data, f, indent=4)  # Write data to file with indentation for readability
-
-# # Determine the next run number based on previous quiz sessions
-# def find_number():
-#     data = load_data()
-#     run_numbers = [int(key.split(" ")[-1]) for key in data.keys() if key.startswith("run number")]
-#     return max(run_numbers) + 1 if run_numbers else 1
-# # Conduct a quiz round based on the given question set
-# def quiz_round(run_number, level, next_level, first_decision, performance_by_level, level_num=1):
-#     level_name = f"Level {level_num}"
-#     correct = []
-#     incorrect = []
-#     box_1.update(performance_by_level[correct])
-#     box_2.update(performance_by_level[incorrect])
-#     print(level_name)
-#     # Shuffle questions to make it random
-#     random_questions = list(level.keys())
-#     random.shuffle(random_questions)
-#     for question in random_questions:
-#         user_answer = input(question + " ").lower()
-#         if user_answer == level[question].lower():
-#             print("Congrats, you answered correctly!")
-#             correct.append(question)
-
-#         else:
-#             print(f"Incorrect :( The correct answer was: {level[question]}")
-#             incorrect.append(question)
-#     # Update performance for the current level
-#     performance_by_level[level_name] = {"correct": correct, "incorrect": incorrect}
-#     save_data(run_number, performance_by_level)
-#     stats_summary(level_name, correct, incorrect, performance_by_level)
-#     print(f"Nice job! You answered {len(correct)} questions correctly")
-
-#     # Check if user passed the level
-#     if len(correct) == 6:
-#         print("You are advancing to the next level!")
-#         if next_level:
-#             quiz_round(run_number, next_level["questions"], next_level.get("next"), first_decision, performance_by_level, level_num + 1)
-#         else:
-#             print(f"Congratulations! You completed all levels of {first_decision}!")
-#             quiz_round(run_number, next_level["questions"], next_level.get("next"), first_decision, performance_by_level, level_num + 1)
-#             main()
-#     else:
-#         print("Oh no! Try getting everything right before continuing")
-#         # json_string = json.dumps(performance_by_level)
-#         # print(json_string)
-#         # quiz_round(run_number, run_number[incorrect], "history", performance_by_level={}, level_num={})
-#         save_data(run_number, performance_by_level)  # Save data before restarting
-#         main()
-
-# # Stats summary after each level
-# def stats_summary(level_name, correct, incorrect, performance_by_level):
-#     total_correct = sum(len(lvl["correct"]) for lvl in performance_by_level.values())
-#     total_incorrect = sum(len(lvl["incorrect"]) for lvl in performance_by_level.values())
-#     print(f"Summary for {level_name}: Correct = {len(correct)}, Incorrect = {len(incorrect)}")
-#     print(f"Stats so far: Total Correct = {total_correct}, Total Incorrect = {total_incorrect}")
-#     print(incorrect, correct)
-# # Main function that starts the quiz
-# def main():
-#     run_number = find_number()
-#     categories = {
-#         "history": {
-#             "questions": {
-#                 "What year did World War II end?": "1945", 
-#                 "Who painted the Mona Lisa?": "Leonardo da Vinci", 
-#                 "What is the longest river in the world?": "The Nile", 
-#                 "Who was the first person to walk on the moon?": "Neil Armstrong",
-#                 "What is the longest wall in the world?": "The Great Wall of China",
-#                 "Where did Albert Einstein live before moving to the United States?": "Germany",
-#                 "Who wrote the Republic, a vision of a society ruled by a philosopher king?":"Plato",
-#                 "When did WWI officially end?":"Nov 11, 1918"
-#             },
-#             "next": {
-#                 "questions": {
-#                     "What was the name of the treaty that ended World War I?": "The Treaty of Versailles",
-#                     "Who was the leader of the Soviet Union during the Cold War?": "Joseph Stalin",
-#                     "What is the name of the period of European history that lasted from the 14th to the 17th century?": "The Renaissance",
-#                     "What was the name of the first successful steam engine?": "The Newcomen Engine",
-#                     "Who wrote 'To Kill a Mockingbird'?": "Harper Lee",
-#                     "What was the code name for the German invasion of the Soviet Union during World War II?": "Operation Barbarossa",
-#                     "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?": "Chernobyl",
-#                     "Who were the main combatants in the Peloponnesian War?":"Athens and Sparta"
-#                 },
-#                 "next": {
-#                     "questions": {
-#                         "What was the name of the secret project that led to the development of the atomic bomb?": "The Manhattan Project", 
-#                         "What was the name of the first successful artificial satellite?": "Sputnik",
-#                         "What is the name of the theory that explains how the universe began?": "The Big Bang Theory",
-#                         "Who was the last tsar of Russia?": "Nicholas II",
-#                         "Who was the first woman to fly solo across the Atlantic Ocean?": "Amelia Earhart",
-#                         "What year did the Berlin Wall fall?": "1989",
-#                         "Who was the first female Prime Minister of the United Kingdom?": "Margaret Thatcher",
-#                         "Which war did Operation: Desert Storm kick off in January 1991?":"The Persian Gulf War"
-#                         ""
-#                     },
-#                             "next": None
-#                         }
-#                     }
-#                 }
-#             }
-                        
-    
-
-#     first_decision = input("Hello! Welcome to the Flashcards Game! Do you want to start with history? (yes/no)").lower()
-#     if first_decision == "yes":
-#             quiz_round(run_number, categories["history"]["questions"], categories["history"].get("next"), "history", performance_by_level={})
-#     else:
-#          print("Okay! Maybe next time. Have a great day!")
-# main()
-
-
-# import pandas as pd
-# window = tk.Tk()
-# bg_color = "#00000"
-# window.title("Flashcards Game!")
-# window.config("500x300")
-# card_title = .create_text(400, 150, text="Title", font=("Ariel", 40, "italic"))
-# window.mainloop()
-
 import json
 import os
 import random
 import tkinter as tk
 
 
-box_1 = {}
-box_2 = {}
-box_3 = {}
+boxes = {
+    "box_1": [],  # incorrect
+    "box_2": [],  # correct 1x
+    "box_3": []   # correct 2x
+}
+
+past_runs = {
+    "level_1": [],
+    "level_2": [],
+    "level_3": []
+}
+
+current_run = {
+    "level_1": {"correct": [], "incorrect": []},
+    "level_2": {"correct": [], "incorrect": []},
+    "level_3": {"correct": [], "incorrect": []}
+}
+
 data_file = "quiz_data.json"
 
 # Load existing quiz data or return an empty dictionary if the file is missing or corrupted
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, "r") as f:
-                content = f.read().strip()
-                return json.loads(content) if content else {}  # Handle empty file case
-    else:
-        print("Oh no, there's been an error!!!")
+            content = f.read().strip()
+            return json.loads(content) if content else {}  # Handle empty file case
     return {}
+def load_past_runs():
+    data = load_data()
+    for run_data in data.values():
+        for level, stats in run_data.items():
+            if level in past_runs and "correct" in stats:
+                past_runs[level].append(stats)
+
 
 # Save the quiz results for a specific run number
-def save_data(run_number, performance_by_level):
+def save_data(past_runs, current_run):
     data = load_data()  # Load existing data
-    data[f"run number {run_number}"] = performance_by_level
+    run = f"run number {len(data) + 1}"
+    data[run] = current_run  # Save current_run directly, not nested
     with open(data_file, "w") as f:
-        json.dump(data, f, indent=4)  # Write data to file with indentation for readability
+        json.dump(data, f, indent=4)
 
-# Determine the next run number based on previous quiz sessions
-def find_number():
-    data = load_data()
-    run_numbers = [int(key.split(" ")[-1]) for key in data.keys() if key.startswith("run number")]
-    return max(run_numbers) + 1 if run_numbers else 1
-# Conduct a quiz round based on the given question set
-def quiz_round(run_number, level, next_level, first_decision, performance_by_level, level_num=1):
-    level_name = f"Level {level_num}"
-    correct = []
-    incorrect = []
-    print(level_name)
-    # Shuffle questions to make it random
-    random_questions = list(level.keys())
-    if level_num > 1:
-        items = len(box_2)//2
-        random_questions.append[box_2]
-        random_questions.append[items]
-        random.shuffle(random_questions)
-    else:
-        random.shuffle(random_questions)
+# Print the average stats for current and past runs
+def print_average(level_name):
+    previous = past_runs.get(level_name, [])
+    total_correct = sum(len(run['correct']) for run in previous)
+    total_attempted = sum(len(run['correct']) + len(run['incorrect']) for run in previous)
+    old_average = (total_correct / total_attempted) if total_attempted else 0
+    current = current_run.get(level_name, {})
+    current_correct = len(current.get("correct", []))
+    current_incorrect = len(current.get("incorrect", []))
+    current_attempted = current_correct + current_incorrect
+    current_average = (current_correct / current_attempted) if current_attempted else 0
+    print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
+# Run a quiz round for a level
+def quiz_round(questions, level_name):
+    random_questions = list(questions.keys())
+    random.shuffle(random_questions)
+    
     for question in random_questions:
-        user_answer = input(question + " ").lower()
-        if user_answer == level[question].lower():
+        user_answer = input(f"{question} ").strip().lower()
+        correct_answer = questions[question].strip().lower()
+
+        if user_answer == correct_answer:
             print("Congrats, you answered correctly!")
+            boxes["box_2"].append(question)
+            current_run[level_name]["correct"].append(question)
         else:
-            print(f"Incorrect :( The correct answer was: {level[question]}")
-            incorrect.append(question)
-
-
-    # Update performance for the current level
-    performance_by_level[level_name] = {"correct": correct, "incorrect": incorrect}
-    save_data(run_number, performance_by_level)
-    for key, value in performance_by_level():
-        box_2.update((correct), correct.value())
-    box_1.update(incorrect)
-    stats_summary(level_name, correct, incorrect, performance_by_level)
-    print(f"Nice job! You answered {len(correct)} questions correctly")
-
-    # Check if user passed the level
-    if len(correct) == 6:
-        print("You are advancing to the next level!")
-        if next_level:
-            quiz_round(run_number, next_level["questions"], next_level.get("next"), first_decision, performance_by_level, level_num + 1)
-        else:
-            print(f"Congratulations! You completed all levels of {first_decision}!")
-            quiz_round(run_number, next_level["questions"], next_level.get("next"), first_decision, performance_by_level, level_num + 1)
-            main()
-    else:
-        print("Oh no! Try getting everything right before continuing")
-        # json_string = json.dumps(performance_by_level)
-        # print(json_string)
-        # quiz_round(run_number, run_number[incorrect], "history", performance_by_level={}, level_num={})
-        save_data(run_number, performance_by_level)  # Save data before restarting
-        main()
-
+            print(f"Incorrect :( The correct answer was: {correct_answer}")
+            boxes["box_1"].append(question)
+            current_run[level_name]["incorrect"].append(question)
         
+        print_average(level_name)
 
-# Stats summary after each level
-def stats_summary(level_name, correct, incorrect, performance_by_level):
-    total_correct = sum(len(lvl["correct"]) for lvl in performance_by_level.values())
-    total_incorrect = sum(len(lvl["incorrect"]) for lvl in performance_by_level.values())
-    print(f"Summary for {level_name}: Correct = {len(correct)}, Incorrect = {len(incorrect)}")
-    print(f"Stats so far: Total Correct = {total_correct}, Total Incorrect = {total_incorrect}")
-    print(incorrect, correct)
+    total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
+    passing = len(current_run[level_name]["correct"]) / total if total else 0
+    if current_run[level_name]["correct"] or current_run[level_name]["incorrect"]:
+        save_data(past_runs, current_run)
+
+    return passing > 0.5
+
 # Main function that starts the quiz
 def main():
-    run_number = find_number()
+    load_past_runs()
     categories = {
         "history": {
             "questions": {
@@ -270,20 +122,34 @@ def main():
                         "What year did the Berlin Wall fall?": "1989",
                         "Who was the first female Prime Minister of the United Kingdom?": "Margaret Thatcher",
                         "Which war did Operation: Desert Storm kick off in January 1991?":"The Persian Gulf War"
-                        ""
                     },
-                            "next": None
-                        }
-                    }
+                    "next": None
                 }
             }
-                        
+        }
+    }
+
+    first_decision = input("Hello! Welcome to the Flashcards Game! Do you want to start with history? (yes/no) ").strip().lower()
     
-
-    first_decision = input("Hello! Welcome to the Flashcards Game! Do you want to start with history? (yes/no)").lower()
     if first_decision == "yes":
-            quiz_round(run_number, categories["history"]["questions"], categories["history"].get("next"), "history", performance_by_level={})
+        level = 1
+        level_name = f"level_{level}"
+        current_category = categories["history"]
+        
+        while current_category:  # Loop through categories while next exists
+            print(f"\nStarting {level_name}...")
+            passed = quiz_round(current_category["questions"], level_name)
+            
+            if passed and current_category.get("next"):  # If passed and there's a next level
+                current_category = current_category["next"]
+                current_run[level_name] = past_runs
+                level += 1
+                level_name = f"level_{level}"
+            else:  # If the player fails or there's no next category
+                break
+        
+        save_data(past_runs, current_run)
     else:
-         print("Okay! Maybe next time. Have a great day!")
-main()
+        print("Okay! Maybe next time. Have a great day!")
 
+main()
