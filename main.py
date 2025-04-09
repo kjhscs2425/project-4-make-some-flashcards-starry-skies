@@ -1,15 +1,13 @@
 import json
 import os
 import random
-import tkinter as tk
-questions_asked = []
 
+questions_asked = []
 
 box_1 = []
 box_2 = []
 box_3 = []
 box_4 = []
-
 
 past_runs = {
     "level_1": [],
@@ -25,13 +23,13 @@ current_run = {
 
 data_file = "quiz_data.json"
 
-# Load existing quiz data or return an empty dictionary if the file is missing or corrupted
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, "r") as f:
             content = f.read().strip()
-            return json.loads(content) if content else {}  # Handle empty file case
+            return json.loads(content) if content else {}
     return {}
+
 def load_past_runs():
     data = load_data()
     for run_data in data.values():
@@ -39,16 +37,13 @@ def load_past_runs():
             if level in past_runs and "correct" in stats:
                 past_runs[level].append(stats)
 
-
-# Save the quiz results for a specific run number
 def save_data(past_runs, current_run):
-    data = load_data()  # Load existing data
+    data = load_data()
     run = f"run number {len(data) + 1}"
-    data[run] = current_run  # Save current_run directly, not nested
+    data[run] = current_run
     with open(data_file, "w") as f:
         json.dump(data, f, indent=4)
 
-# Print the average stats for current and past runs
 def print_average(level_name):
     previous = past_runs.get(level_name, [])
     total_correct = sum(len(run['correct']) for run in previous)
@@ -61,10 +56,7 @@ def print_average(level_name):
     current_average = (current_correct / current_attempted) if current_attempted else 0
     print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
 
-
-# Run a quiz round for a level
 def quiz_round(og_questions, level_name, level):
-    review_questions = {}
     if level == 1:
         review = box_1
     elif level == 2:
@@ -73,18 +65,20 @@ def quiz_round(og_questions, level_name, level):
         review = box_3
     else:
         review = []
-    for question in review_questions:
-        if question not in og_questions:
-            og_questions[question] = question.value
-    random_questions = list(og_questions.keys())
-    random.shuffle(random_questions)
-    for question, correct_answer in random_questions:
-        if question in questions_asked:
-            pass
-        user_answer = input(f"{question}").lower()
-        if correct_answer == correct_answer.lower():
+
+    if level == 1:
+        questions = list(og_questions.keys())
+    else:
+        questions = list(og_questions.keys()) + review
+
+    random.shuffle(questions)
+
+    for question in questions:
+        correct_answer = og_questions.get(question, "").lower()
+        user_answer = input(f"{question} ").strip().lower()
+        if user_answer == correct_answer:
             print("Congrats, you answered correctly!")
-            # current_run[level_name]["correct"].append(question)
+            current_run[level_name]["correct"].append(question)
             if level == 1:
                 box_2.append(question)
             elif level == 2:
@@ -94,23 +88,31 @@ def quiz_round(og_questions, level_name, level):
         else:
             print(f"Incorrect :( The correct answer was: {correct_answer}")
             current_run[level_name]["incorrect"].append(question)
-            questions_asked.append(question)
             if level == 1:
                 box_1.append(question)
+                new_questions = og_questions + box_1
+                quiz_round(new_questions, level_name, level)
             elif level == 2:
                 box_2.append(question)
+                new_questions = og_questions + box_2
+                quiz_round(new_questions, level_name, level)
             elif level == 3:
                 box_3.append(question)
+                new_questions = og_questions + box_3
+                quiz_round(new_questions, level_name, level)
+
         questions_asked.append(question)
+
     print_average(level_name)
+
     total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
     passing = len(current_run[level_name]["correct"]) / total if total else 0
-    if current_run[level_name]["correct"] or current_run[level_name]["incorrect"]:
+
+    if total > 0:
         save_data(past_runs, current_run)
 
     return passing > 0.5
 
-# Main function that starts the quiz
 def main():
     load_past_runs()
     categories = {
@@ -122,8 +124,8 @@ def main():
                 "Who was the first person to walk on the moon?": "Neil Armstrong",
                 "What is the longest wall in the world?": "The Great Wall of China",
                 "Where did Albert Einstein live before moving to the United States?": "Germany",
-                "Who wrote the Republic, a vision of a society ruled by a philosopher king?":"Plato",
-                "When did WWI officially end?":"Nov 11, 1918"
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?": "Plato",
+                "When did WWI officially end?": "Nov 11, 1918"
             },
             "next": {
                 "questions": {
@@ -134,7 +136,7 @@ def main():
                     "Who wrote 'To Kill a Mockingbird'?": "Harper Lee",
                     "What was the code name for the German invasion of the Soviet Union during World War II?": "Operation Barbarossa",
                     "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?": "Chernobyl",
-                    "Who were the main combatants in the Peloponnesian War?":"Athens and Sparta"
+                    "Who were the main combatants in the Peloponnesian War?": "Athens and Sparta"
                 },
                 "next": {
                     "questions": {
@@ -145,7 +147,7 @@ def main():
                         "Who was the first woman to fly solo across the Atlantic Ocean?": "Amelia Earhart",
                         "What year did the Berlin Wall fall?": "1989",
                         "Who was the first female Prime Minister of the United Kingdom?": "Margaret Thatcher",
-                        "Which war did Operation: Desert Storm kick off in January 1991?":"The Persian Gulf War"
+                        "Which war did Operation: Desert Storm kick off in January 1991?": "The Persian Gulf War"
                     },
                     "next": None
                 }
@@ -160,15 +162,15 @@ def main():
         level_name = f"level_{level}"
         current_category = categories["history"]
         
-        while current_category:  # Loop through categories while next exists
-            print(f"Starting {level_name}...")
+        while current_category:
+            print(f"\nStarting {level_name}...")
             passed = quiz_round(current_category["questions"], level_name, level)
             
-            if passed and current_category.get("next"):  # If passed and there's a next level
+            if passed and current_category.get("next"):
                 current_category = current_category["next"]
                 level += 1
                 level_name = f"level_{level}"
-            else:  # If the player fails or there's no next category
+            else:
                 break
         
         save_data(past_runs, current_run)
