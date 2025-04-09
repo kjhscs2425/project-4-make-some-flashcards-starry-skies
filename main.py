@@ -2,13 +2,14 @@ import json
 import os
 import random
 import tkinter as tk
+questions_asked = []
 
 
 box_1 = []
 box_2 = []
 box_3 = []
 box_4 = []
-questions_asked = []
+
 
 past_runs = {
     "level_1": [],
@@ -62,43 +63,46 @@ def print_average(level_name):
 
 
 # Run a quiz round for a level
-def quiz_round(questions, level_name):
-    random_questions = list(questions.keys())
-    # random.shuffle(random_questions)
-    for question in random_questions:
-        user_answer = input(f"{question}").lower()
-        correct_answer = questions[question].lower()
+def quiz_round(og_questions, level_name, level):
+    review_questions = {}
+    if level == 1:
+        review = box_1
+    elif level == 2:
+        review = box_2
+    elif level == 3:
+        review = box_3
+    else:
+        review = []
+    for question in review_questions:
+        if question not in og_questions:
+            og_questions[question] = question.value
+    random_questions = list(og_questions.keys())
+    random.shuffle(random_questions)
+    for question, correct_answer in random_questions:
         if question in questions_asked:
             pass
-        random.shuffle(random_questions)
-        if level == 1:
-                if user_answer == correct_answer:
-                    print("Congrats, you answered correctly!")
-                    current_run[level_name]["correct"].append(question)
-                    questions_asked.append(question)
-                    box_2.append(question)
-            else:
-                print(f"Incorrect :( The correct answer was: {correct_answer}")
-                current_run[level_name]["incorrect"].append(question)
-                questions_asked.append(question)
-                box_1.append(question)
-        if level > 1:
-            new_questions = list(questions[])
-            if user_answer == correct_answer:
-                print("Congrats, you answered correctly!")
-                current_run[level_name]["correct"].append(question)
-                questions_asked.append(question)
+        user_answer = input(f"{question}").lower()
+        if correct_answer == correct_answer.lower():
+            print("Congrats, you answered correctly!")
+            # current_run[level_name]["correct"].append(question)
+            if level == 1:
                 box_2.append(question)
-            else:
-                print(f"Incorrect :( The correct answer was: {correct_answer}")
-                current_run[level_name]["incorrect"].append(question)
-                questions_asked.append(question)
+            elif level == 2:
+                box_3.append(question)
+            elif level == 3:
+                box_4.append(question)
+        else:
+            print(f"Incorrect :( The correct answer was: {correct_answer}")
+            current_run[level_name]["incorrect"].append(question)
+            questions_asked.append(question)
+            if level == 1:
                 box_1.append(question)
-
-            
-    
-        
-        print_average(level_name)
+            elif level == 2:
+                box_2.append(question)
+            elif level == 3:
+                box_3.append(question)
+        questions_asked.append(question)
+    print_average(level_name)
     total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
     passing = len(current_run[level_name]["correct"]) / total if total else 0
     if current_run[level_name]["correct"] or current_run[level_name]["incorrect"]:
@@ -158,11 +162,10 @@ def main():
         
         while current_category:  # Loop through categories while next exists
             print(f"Starting {level_name}...")
-            passed = quiz_round(current_category["questions"], level_name)
+            passed = quiz_round(current_category["questions"], level_name, level)
             
             if passed and current_category.get("next"):  # If passed and there's a next level
                 current_category = current_category["next"]
-                current_run[level_name] = past_runs
                 level += 1
                 level_name = f"level_{level}"
             else:  # If the player fails or there's no next category
