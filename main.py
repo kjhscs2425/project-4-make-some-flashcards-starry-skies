@@ -26,7 +26,7 @@ data_file = "quiz_data.json"
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, "r") as f:
-            content = f.read().strip()
+            content = f.read()
             return json.loads(content) if content else {}
     return {}
 
@@ -80,12 +80,6 @@ def quiz_round(questions_dict, level_name, level):
         if user_answer == correct_answer:
             print("Congrats, you answered correctly!")
             current_run[level_name]["correct"].append(question)
-            if level == 1:
-                box_2.append(question)
-            elif level == 2:
-                box_3.append(question)
-            elif level == 3:
-                box_4.append(question)
         else:
             print(f"Incorrect :( The correct answer was: {correct_answer}")
             current_run[level_name]["incorrect"].append(question)

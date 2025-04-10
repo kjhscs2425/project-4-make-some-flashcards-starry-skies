@@ -877,5 +877,121 @@
             "correct": [],
             "incorrect": []
         }
+    },
+    "run number 38": {
+        "level_1": {
+            "correct": [
+                "What year did World War II end?",
+                "What is the longest wall in the world?",
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "Where did Albert Einstein live before moving to the United States?"
+            ],
+            "incorrect": [
+                "Who painted the Mona Lisa?",
+                "When did WWI officially end?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 39": {
+        "level_1": {
+            "correct": [
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "When did WWI officially end?",
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": [
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 40": {
+        "level_1": {
+            "correct": [
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "When did WWI officially end?",
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": [
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "What was the name of the treaty that ended World War I?",
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?"
+            ],
+            "incorrect": [
+                "What was the name of the first successful steam engine?",
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "Who were the main combatants in the Peloponnesian War?",
+                "Who wrote 'To Kill a Mockingbird'?"
+            ]
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 41": {
+        "level_1": {
+            "correct": [
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "When did WWI officially end?",
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What year did World War II end?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": [
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "What was the name of the treaty that ended World War I?",
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?"
+            ],
+            "incorrect": [
+                "What was the name of the first successful steam engine?",
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "Who were the main combatants in the Peloponnesian War?",
+                "Who wrote 'To Kill a Mockingbird'?"
+            ]
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
     }
 }
