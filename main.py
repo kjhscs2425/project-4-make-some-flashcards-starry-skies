@@ -56,62 +56,40 @@ def print_average(level_name):
     current_average = (current_correct / current_attempted) if current_attempted else 0
     print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
 
-def quiz_round(og_questions, level_name, level):
-    if level == 1:
-        review = box_1
-    elif level == 2:
-        review = box_2
-    elif level == 3:
-        review = box_3
-    else:
-        review = []
 
-    if level == 1:
-        questions = list(og_questions.keys())
-    else:
-        questions = list(og_questions.keys()) + review
 
-    random.shuffle(questions)
+def quiz_round(questions, level_name, level, extras=None):
+    all_questions = list(questions.keys())
+    if extras:
+        all_questions += extras
+    random.shuffle(all_questions)
 
-    for question in questions:
-        correct_answer = og_questions.get(question, "").lower()
+    correct = []
+    incorrect = []
+
+    for question in all_questions:
+        correct_answer = questions.get(question, "").lower()
         user_answer = input(f"{question} ").strip().lower()
-        if user_answer == correct_answer:
-            print("Congrats, you answered correctly!")
-            current_run[level_name]["correct"].append(question)
-            if level == 1:
-                box_2.append(question)
-            elif level == 2:
-                box_3.append(question)
-            elif level == 3:
-                box_4.append(question)
-        else:
-            print(f"Incorrect :( The correct answer was: {correct_answer}")
-            current_run[level_name]["incorrect"].append(question)
-            if level == 1:
-                box_1.append(question)
-                new_questions = og_questions + box_1
-                quiz_round(new_questions, level_name, level)
-            elif level == 2:
-                box_2.append(question)
-                new_questions = og_questions + box_2
-                quiz_round(new_questions, level_name, level)
-            elif level == 3:
-                box_3.append(question)
-                new_questions = og_questions + box_3
-                quiz_round(new_questions, level_name, level)
 
-        questions_asked.append(question)
+        if user_answer == correct_answer:
+            print("Correct!")
+            correct.append(question)
+            current_run[level_name]["correct"].append(question)
+        else:
+            print(f"Incorrect. Correct answer: {correct_answer}")
+            incorrect.append(question)
+            current_run[level_name]["incorrect"].append(question)
 
     print_average(level_name)
 
-    total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
-    passing = len(current_run[level_name]["correct"]) / total if total else 0
-
+    total = len(correct) + len(incorrect)
     if total > 0:
         save_data(past_runs, current_run)
 
-    return passing > 0.5
+    passed = len(correct) / total >= 0.5 if total > 0 else False
+    return passed > 0.5, current_run[level_name]["correct"], current_run[level_name]["incorrect"]
+
+
 
 def main():
     load_past_runs()
@@ -159,20 +137,39 @@ def main():
     
     if first_decision == "yes":
         level = 1
-        level_name = f"level_{level}"
         current_category = categories["history"]
         
         while current_category:
-            print(f"\nStarting {level_name}...")
-            passed = quiz_round(current_category["questions"], level_name, level)
+            level_name = f"level_{level}"
+            print(f"Starting {level_name}...")
+            # passed = quiz_round(current_category["questions"], level_name, level)
             
-            if passed and current_category.get("next"):
-                current_category = current_category["next"]
-                level += 1
-                level_name = f"level_{level}"
+            if level == 1:
+                extras = None
+            elif level == 2:
+                extras = current_run["level_1"]["correct"]
+            elif level == 3:
+                from random import sample
+                level2_correct = current_run["level_2"]["correct"]
+                extras = sample(level2_correct, len(level2_correct) // 2) if level2_correct else []
+            current_run[level_name]["correct"].clear()
+            current_run[level_name]["incorrect"].clear()
+            passed, correct, incorrect = quiz_round(current_category["questions"], level_name, level, extras)
+            if passed:
+            # Go to next level if it exists
+                if current_category.get("next"):
+                    current_category = current_category["next"]
+                    level += 1
+                else:
+                    print("You've completed all levels! Great job!")
+                    break
             else:
-                break
-        
+                print(f"Oh no, didn’t pass {level_name}. Try again, you got this!!!")
+            # Add previously incorrect questions into the round again
+            retry_questions = current_category["questions"].copy()
+            for question in current_run[level_name]["incorrect"]:
+                retry_questions[question] = retry_questions.get(question, "")
+            current_category["questions"] = retry_questions
         save_data(past_runs, current_run)
     else:
         print("Okay! Maybe next time. Have a great day!")

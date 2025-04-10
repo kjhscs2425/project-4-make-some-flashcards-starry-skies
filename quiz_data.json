@@ -608,5 +608,250 @@
             "correct": [],
             "incorrect": []
         }
+    },
+    "run number 28": {
+        "level_1": {
+            "correct": [
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest river in the world?"
+            ],
+            "incorrect": [
+                "What is the longest wall in the world?",
+                "Who painted the Mona Lisa?",
+                "Who was the first person to walk on the moon?",
+                "When did WWI officially end?",
+                "What year did World War II end?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 29": {
+        "level_1": {
+            "correct": [
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest river in the world?"
+            ],
+            "incorrect": [
+                "What is the longest wall in the world?",
+                "Who painted the Mona Lisa?",
+                "Who was the first person to walk on the moon?",
+                "When did WWI officially end?",
+                "What year did World War II end?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 30": {
+        "level_1": {
+            "correct": [],
+            "incorrect": [
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "Who was the first person to walk on the moon?",
+                "What year did World War II end?",
+                "What is the longest river in the world?",
+                "When did WWI officially end?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "What is the longest wall in the world?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 31": {
+        "level_1": {
+            "correct": [
+                "Who painted the Mona Lisa?",
+                "What is the longest wall in the world?",
+                "What year did World War II end?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "Where did Albert Einstein live before moving to the United States?"
+            ],
+            "incorrect": [
+                "Who was the first person to walk on the moon?",
+                "What is the longest river in the world?",
+                "When did WWI officially end?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 32": {
+        "level_1": {
+            "correct": [
+                "What is the longest river in the world?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "What year did World War II end?",
+                "Who was the first person to walk on the moon?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "When did WWI officially end?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": [
+                "Who painted the Mona Lisa?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 33": {
+        "level_1": {
+            "correct": [
+                "What year did World War II end?",
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "When did WWI officially end?",
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": []
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 34": {
+        "level_1": {
+            "correct": [
+                "What year did World War II end?",
+                "Who painted the Mona Lisa?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "When did WWI officially end?",
+                "What is the longest river in the world?",
+                "Who was the first person to walk on the moon?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": []
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": [
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "What is the longest river in the world?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "Who wrote 'To Kill a Mockingbird'?",
+                "What was the name of the first successful steam engine?",
+                "Who painted the Mona Lisa?",
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "What year did World War II end?",
+                "When did WWI officially end?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?",
+                "What was the name of the treaty that ended World War I?",
+                "Who was the first person to walk on the moon?",
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?",
+                "What is the longest wall in the world?",
+                "Who were the main combatants in the Peloponnesian War?"
+            ]
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 35": {
+        "level_1": {
+            "correct": [
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "Who was the first person to walk on the moon?",
+                "What year did World War II end?",
+                "When did WWI officially end?",
+                "Where did Albert Einstein live before moving to the United States?"
+            ],
+            "incorrect": [
+                "What is the longest wall in the world?",
+                "What is the longest river in the world?",
+                "Who painted the Mona Lisa?"
+            ]
+        },
+        "level_2": {
+            "correct": [
+                "What was the name of the first successful steam engine?",
+                "Who wrote 'To Kill a Mockingbird'?"
+            ],
+            "incorrect": [
+                "What was the name of the treaty that ended World War I?",
+                "Who was the first person to walk on the moon?",
+                "Who was the leader of the Soviet Union during the Cold War?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the name of the period of European history that lasted from the 14th to the 17th century?",
+                "What was the name of the Ukrainian nuclear power plant that was the site of a nuclear disaster in April 1986?",
+                "Who were the main combatants in the Peloponnesian War?",
+                "What was the code name for the German invasion of the Soviet Union during World War II?",
+                "When did WWI officially end?",
+                "What year did World War II end?"
+            ]
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
+    },
+    "run number 36": {
+        "level_1": {
+            "correct": [
+                "Who was the first person to walk on the moon?",
+                "What is the longest river in the world?",
+                "Who wrote the Republic, a vision of a society ruled by a philosopher king?",
+                "What year did World War II end?",
+                "Where did Albert Einstein live before moving to the United States?",
+                "What is the longest wall in the world?"
+            ],
+            "incorrect": [
+                "When did WWI officially end?",
+                "Who painted the Mona Lisa?"
+            ]
+        },
+        "level_2": {
+            "correct": [],
+            "incorrect": []
+        },
+        "level_3": {
+            "correct": [],
+            "incorrect": []
+        }
     }
 }
