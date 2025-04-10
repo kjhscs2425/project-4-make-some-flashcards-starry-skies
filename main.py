@@ -56,40 +56,57 @@ def print_average(level_name):
     current_average = (current_correct / current_attempted) if current_attempted else 0
     print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
 
+def quiz_round(questions_dict, level_name, level):
+    if level == 1:
+        review = box_1
+    elif level == 2:
+        review = box_2
+    elif level == 3:
+        review = box_3
+    else:
+        review = []
 
+    # Combine questions for levels above 1
+    if level == 1:
+        questions = list(questions_dict.keys())
+    else:
+        questions = list(questions_dict.keys()) + review
 
-def quiz_round(questions, level_name, level, extras=None):
-    all_questions = list(questions.keys())
-    if extras:
-        all_questions += extras
-    random.shuffle(all_questions)
+    random.shuffle(questions)
 
-    correct = []
-    incorrect = []
-
-    for question in all_questions:
-        correct_answer = questions.get(question, "").lower()
-        user_answer = input(f"{question} ").strip().lower()
-
+    for question in questions:
+        correct_answer = questions_dict.get(question, "").lower()
+        user_answer = input(f"{question} ").lower()
         if user_answer == correct_answer:
-            print("Correct!")
-            correct.append(question)
+            print("Congrats, you answered correctly!")
             current_run[level_name]["correct"].append(question)
+            if level == 1:
+                box_2.append(question)
+            elif level == 2:
+                box_3.append(question)
+            elif level == 3:
+                box_4.append(question)
         else:
-            print(f"Incorrect. Correct answer: {correct_answer}")
-            incorrect.append(question)
+            print(f"Incorrect :( The correct answer was: {correct_answer}")
             current_run[level_name]["incorrect"].append(question)
+            if level == 1:
+                box_1.append(question)
+            elif level == 2:
+                box_2.append(question)
+            elif level == 3:
+                box_3.append(question)
+
+        questions_asked.append(question)
 
     print_average(level_name)
 
-    total = len(correct) + len(incorrect)
+    total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
+    passing = len(current_run[level_name]["correct"]) / total if total else 0
+
     if total > 0:
         save_data(past_runs, current_run)
 
-    passed = len(correct) / total >= 0.5 if total > 0 else False
-    return passed > 0.5, current_run[level_name]["correct"], current_run[level_name]["incorrect"]
-
-
+    return passing > 0.5
 
 def main():
     load_past_runs()
@@ -137,39 +154,20 @@ def main():
     
     if first_decision == "yes":
         level = 1
+        level_name = f"level_{level}"
         current_category = categories["history"]
         
         while current_category:
-            level_name = f"level_{level}"
-            print(f"Starting {level_name}...")
-            # passed = quiz_round(current_category["questions"], level_name, level)
+            print(f"Starting {level_name}!!!")
+            passed = quiz_round(current_category["questions"], level_name, level)
             
-            if level == 1:
-                extras = None
-            elif level == 2:
-                extras = current_run["level_1"]["correct"]
-            elif level == 3:
-                from random import sample
-                level2_correct = current_run["level_2"]["correct"]
-                extras = sample(level2_correct, len(level2_correct) // 2) if level2_correct else []
-            current_run[level_name]["correct"].clear()
-            current_run[level_name]["incorrect"].clear()
-            passed, correct, incorrect = quiz_round(current_category["questions"], level_name, level, extras)
-            if passed:
-            # Go to next level if it exists
-                if current_category.get("next"):
-                    current_category = current_category["next"]
-                    level += 1
-                else:
-                    print("You've completed all levels! Great job!")
-                    break
+            if passed and current_category.get("next"):
+                current_category = current_category["next"]
+                level += 1
+                level_name = f"level_{level}"
             else:
-                print(f"Oh no, didn’t pass {level_name}. Try again, you got this!!!")
-            # Add previously incorrect questions into the round again
-            retry_questions = current_category["questions"].copy()
-            for question in current_run[level_name]["incorrect"]:
-                retry_questions[question] = retry_questions.get(question, "")
-            current_category["questions"] = retry_questions
+                break
+        
         save_data(past_runs, current_run)
     else:
         print("Okay! Maybe next time. Have a great day!")
