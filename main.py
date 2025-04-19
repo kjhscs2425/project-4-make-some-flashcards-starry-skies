@@ -4,11 +4,6 @@ import random
 
 questions_asked = []
 
-box_1 = []
-box_2 = []
-box_3 = []
-box_4 = []
-
 past_runs = {
     "level_1": [],
     "level_2": [],
@@ -29,18 +24,20 @@ def load_data():
             content = f.read().strip()
             return json.loads(content) if content else {}
     return {}
-
-def load_past_runs():
+def load_past_runs(username):
     data = load_data()
-    for run_data in data.values():
+    user_data = data.get(username, {}) 
+    for run_data in user_data.values():
         for level, stats in run_data.items():
             if level in past_runs and "correct" in stats:
                 past_runs[level].append(stats)
 
-def save_data(past_runs, current_run):
+def save_data(username, current_run):
     data = load_data()
-    run = f"run number {len(data) + 1}"
-    data[run] = current_run
+    if username not in data:
+        data[username] = {}
+    run = f"run number {len(data[username]) + 1}"
+    data[username][run] = current_run
     with open(data_file, "w") as f:
         json.dump(data, f, indent=4)
 
@@ -56,60 +53,54 @@ def print_average(level_name):
     current_average = (current_correct / current_attempted) if current_attempted else 0
     print(f"Past average = {old_average:.2%}, current average = {current_average:.2%}.")
 
-def quiz_round(questions_dict, level_name, level):
-    if level == 1:
-        review = box_1
-    elif level == 2:
-        review = box_2
-    elif level == 3:
-        review = box_3
-    else:
-        review = []
+def quiz_round(category, username, level=1):
+    level_name = f"level_{level}"
+    questions_dict = category["questions"]
+    remaining_questions = list(questions_dict.keys())
+    random.shuffle(remaining_questions)
 
-    # Combine questions for levels above 1
-    if level == 1:
-        questions = list(questions_dict.keys())
-    else:
-        questions = list(questions_dict.keys()) + review
+    # Track only first attempt results for saving
+    first_try = {"correct": [], "incorrect": []}
 
-    random.shuffle(questions)
+    first_pass = True
 
-    for question in questions:
-        correct_answer = questions_dict.get(question, "").lower()
-        user_answer = input(f"{question} ").lower()
-        if user_answer == correct_answer:
-            print("Congrats, you answered correctly!")
-            current_run[level_name]["correct"].append(question)
-            if level == 1:
-                box_2.append(question)
-            elif level == 2:
-                box_3.append(question)
-            elif level == 3:
-                box_4.append(question)
-        else:
-            print(f"Incorrect :( The correct answer was: {correct_answer}")
-            current_run[level_name]["incorrect"].append(question)
-            if level == 1:
-                box_1.append(question)
-            elif level == 2:
-                box_2.append(question)
-            elif level == 3:
-                box_3.append(question)
+    while remaining_questions:
+        incorrect_questions = []
 
-        questions_asked.append(question)
+        for question in remaining_questions:
+            correct_answer = questions_dict[question].lower()
+            user_answer = input(f"Flashcard: {question} \nYour answer: ").strip().lower()
 
-    print_average(level_name)
+            if user_answer == correct_answer:
+                print("Correct.!!!")
+                if first_pass:
+                    first_try["correct"].append(question)
+            else:
+                print(f"Incorrect :( The correct answer was: {correct_answer}")
+                incorrect_questions.append(question)
+                if first_pass:
+                    first_try["incorrect"].append(question)
 
-    total = len(current_run[level_name]["correct"]) + len(current_run[level_name]["incorrect"])
-    passing = len(current_run[level_name]["correct"]) / total if total else 0
+            questions_asked.append(question)
+        if first_pass:
+            # Save first try result for averages
+            current_run[level_name]["correct"].extend(first_try["correct"])
+            current_run[level_name]["incorrect"].extend(first_try["incorrect"])
+            first_pass = False
+            print_average(level_name)
+        if incorrect_questions:
+            print(f"Oops, you made {len(incorrect_questions)} mistakes! Try again before going to round 2")
+            print_average(level_name)
+        remaining_questions = incorrect_questions
+    save_data(username, current_run)
 
-    if total > 0:
-        save_data(past_runs, current_run)
-
-    return passing > 0.5
+    print(f"You passed {level_name}!")
+    if category.get("next"):
+        quiz_round(category["next"], username, level + 1)
 
 def main():
-    load_past_runs()
+    username = input("Howdy! What's your name?: ").lower()
+    load_past_runs(username)
     categories = {
         "history": {
             "questions": {
@@ -149,27 +140,9 @@ def main():
             }
         }
     }
-
-    first_decision = input("Hello! Welcome to the Flashcards Game! Do you want to start with history? (yes/no) ").strip().lower()
-    
-    if first_decision == "yes":
-        level = 1
-        level_name = f"level_{level}"
-        current_category = categories["history"]
-        
-        while current_category:
-            print(f"Starting {level_name}!!!")
-            passed = quiz_round(current_category["questions"], level_name, level)
-            
-            if passed and current_category.get("next"):
-                current_category = current_category["next"]
-                level += 1
-                level_name = f"level_{level}"
-            else:
-                break
-        
-        save_data(past_runs, current_run)
+    if input("Welcome to the History Trivia Game! Are you ready to rumble??? (yes/no): ").lower() == "yes":
+        quiz_round(categories["history"], username)
     else:
-        print("Okay! Maybe next time. Have a great day!")
+        print("Okay, see you next time!")
 
 main()
