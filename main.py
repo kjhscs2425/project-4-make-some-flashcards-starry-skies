@@ -1,8 +1,17 @@
 import json
 import os
 import random
+import matplotlib.pyplot as plt
 
-
+def show_flashcard(text, title="Flashcard"):
+    plt.ion()  # Turn on interactive mode
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.text(0.5, 0.5, text, fontsize=18, ha='center', va='center', wrap=True)
+    ax.set_axis_off()
+    plt.title(title, fontsize=14, pad=20)
+    plt.tight_layout()
+    plt.show()
+    plt.pause(0.01)  # Needed to allow the figure to render
 
 questions_asked = []
 
@@ -23,7 +32,7 @@ data_file = "quiz_data.json"
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, "r") as f:
-            content = f.read().strip()
+            content = f.read()
             return json.loads(content) if content else {}
     return {}
 def load_past_runs(username):
@@ -71,28 +80,30 @@ def quiz_round(category, username, level=1):
 
         for question in remaining_questions:
             correct_answer = questions_dict[question].lower()
-            user_answer = input(f"Flashcard: {question} \nYour answer: ").strip().lower()
-
+            show_flashcard(question, title=f"Level {level} Flashcard")
+            user_answer = input("Your answer: ").lower()
+            plt.close()
             if user_answer == correct_answer:
                 print("Correct.!!!")
                 if first_pass:
                     first_try["correct"].append(question)
             else:
                 print(f"Incorrect :( The correct answer was: {correct_answer}")
+                show_flashcard(f"The correct answer was:\n{correct_answer}", title="Answer")
                 incorrect_questions.append(question)
                 if first_pass:
                     first_try["incorrect"].append(question)
-
             questions_asked.append(question)
-        if first_pass:
+
             # Save first try result for averages
             current_run[level_name]["correct"].extend(first_try["correct"])
             current_run[level_name]["incorrect"].extend(first_try["incorrect"])
             first_pass = False
-            print_average(level_name)
+        print_average(level_name)
         if incorrect_questions:
             print(f"Oops, you made {len(incorrect_questions)} mistakes! Try again before going to round 2")
-            print_average(level_name)
+        
+        print_average(level_name)
         remaining_questions = incorrect_questions
     save_data(username, current_run)
 
