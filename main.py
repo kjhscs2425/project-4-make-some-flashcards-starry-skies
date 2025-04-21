@@ -69,22 +69,18 @@ def quiz_round(category, username, level=1):
     questions_dict = category["questions"]
     remaining_questions = list(questions_dict.keys())
     random.shuffle(remaining_questions)
-
-    # Track only first attempt results for saving
+    #first attempt 
     first_try = {"correct": [], "incorrect": []}
-
     first_pass = True
-
     while remaining_questions:
         incorrect_questions = []
-
         for question in remaining_questions:
             correct_answer = questions_dict[question].lower()
             show_flashcard(question, title=f"Level {level} Flashcard")
             user_answer = input("Your answer: ").lower()
             plt.close()
             if user_answer == correct_answer:
-                print("Correct.!!!")
+                print("Correct!!!")
                 if first_pass:
                     first_try["correct"].append(question)
             else:
@@ -94,20 +90,16 @@ def quiz_round(category, username, level=1):
                 if first_pass:
                     first_try["incorrect"].append(question)
             questions_asked.append(question)
-
-            # Save first try result for averages
+        if first_pass:
             current_run[level_name]["correct"].extend(first_try["correct"])
             current_run[level_name]["incorrect"].extend(first_try["incorrect"])
             first_pass = False
         print_average(level_name)
         if incorrect_questions:
-            print(f"Oops, you made {len(incorrect_questions)} mistakes! Try again before going to round 2")
-        
-        print_average(level_name)
+            print(f"Oops, you made {len(incorrect_questions)} mistakes! Try again before advancing to the next level")
         remaining_questions = incorrect_questions
     save_data(username, current_run)
-
-    print(f"You passed {level_name}!")
+    print(f"Yay, you passed {level_name}!")
     if category.get("next"):
         quiz_round(category["next"], username, level + 1)
 
