@@ -4,14 +4,14 @@ import random
 import matplotlib.pyplot as plt
 
 def show_flashcard(text, title="Flashcard"):
-    plt.ion()  # Turn on interactive mode
-    fig, ax = plt.subplots(figsize=(7, 4))
+    plt.ion()  #updates without stopping code
+    fig, ax = plt.subplots(figsize=(7, 4)) #figure size 7 by 4 inches, other measurements work too
     ax.text(0.5, 0.5, text, fontsize=18, ha='center', va='center', wrap=True)
     ax.set_axis_off()
     plt.title(title, fontsize=14, pad=20)
     plt.tight_layout()
     plt.show()
-    plt.pause(0.01)  # Needed to allow the figure to render
+    plt.pause(0.01)  
 
 questions_asked = []
 
